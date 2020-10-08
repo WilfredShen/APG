@@ -54,10 +54,12 @@ export default {
   name: "APGnav",
   data() {
     return {
+      // 选题数据
       navForm: {
         difficulty: 0,
         number: 10,
       },
+      // 难度选项
       difficultyOptions: [
         {
           value: 0,
@@ -72,7 +74,9 @@ export default {
           label: "高中",
         },
       ],
+      // 数量选项
       numberOptions: Array.apply(null, { length: 21 }).map((v, i) => i + 10),
+      // 校验规则
       navRules: {
         difficulty: {
           required: true,
@@ -94,6 +98,7 @@ export default {
     };
   },
   methods: {
+    /* 随机生成种子，并跳转至答题界面 */
     submit: function () {
       var flag;
       this.$refs["navForm"].validate((res) => {
@@ -111,6 +116,7 @@ export default {
         });
       }
     },
+    /* 退出登录 */
     exit: function () {
       localStorage.removeItem("apg-token");
       this.$router.push("/login");

@@ -8,5 +8,3 @@ export default {
   name: 'APG'
 };
 </script>
-
-<style lang="stylus" scoped></style>

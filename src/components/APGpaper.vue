@@ -51,14 +51,16 @@ export default {
   name: "APGpaper",
   data() {
     return {
+      // 试卷元数据（难度、数量、种子）
       paperMeta: {},
+      // 试卷数据，一个对象为一道试题
       paperData: [],
-      doneSet: new Set(),
+      // 当前选中的试题
       current: 0,
-      percentage: 0,
     };
   },
   methods: {
+    /* 提交答题情况 */
     submit: function () {
       var count = 0,
         ans = "";
@@ -108,11 +110,13 @@ export default {
     },
   },
   computed: {
+    /* 为 DOM 的渲染提供数据 */
     curData: function () {
       return this.paperData[Math.floor(this.current / 5)][this.current % 5];
     },
   },
   created() {
+    /* 渲染 DOM 之前加载数据 */
     this.paperMeta = {
       difficulty: Number(this.$route.query.difficulty),
       number: Number(this.$route.query.number),

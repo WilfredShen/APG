@@ -2,6 +2,9 @@ const dbName = "apg";
 const dbVersion = 1;
 
 export default {
+  /**
+   * 初始化 IndexedDB 数据库
+   */
   initDB: function () {
     var request = indexedDB.open(dbName, dbVersion);
     request.onerror = function () {
@@ -21,6 +24,10 @@ export default {
     };
     return true;
   },
+  /**
+   * 打开数据库
+   * @return {Promise} 打开结果
+   */
   openDB: function () {
     return new Promise((resolve, reject) => {
       var request = indexedDB.open(dbName, dbVersion);
@@ -32,6 +39,12 @@ export default {
       };
     });
   },
+  /**
+   * 异步向指定表中插入数据
+   * @param {string} table 表名
+   * @param {Object} data 要插入的数据
+   * @return {Promise} 插入结果
+   */
   insert: async function (table, data) {
     var db = await this.openDB();
     return new Promise((resolve, reject) => {
@@ -47,6 +60,12 @@ export default {
       }
     })
   },
+  /**
+   * 异步更新表中的数据
+   * @param {string} table 表名
+   * @param {Object} data 要更新的数据
+   * @return {Promise} 更新结果
+   */
   update: async function (table, data) {
     var db = await this.openDB();
     return new Promise((resolve, reject) => {
@@ -62,6 +81,13 @@ export default {
       }
     })
   },
+  /**
+   * 根据主键或索引异步查询数据
+   * @param {string} table 表名
+   * @param {Object} key 主键/索引值
+   * @param {string} index 索引名：若未指定索引名，则根据主键查询；若指定索引名，则根据指定索引查询
+   * @return {Promise} 查询结果
+   */
   select: async function (table, key, index) {
     var db = await this.openDB();
     return new Promise((resolve, reject) => {

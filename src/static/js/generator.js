@@ -1,20 +1,39 @@
+// 随机数种子
 let $seed = 0;
 
+/**
+ * 初始化随机数种子
+ * @param {Number} seed 种子
+ */
 function $srand(seed) {
   $seed = seed || 0;
 }
 
+/**
+ * 随机生成 [0,1) 内的数
+ * @return {Double} [0,1) 内的数
+ */
 function $rand() {
   $seed = ($seed * 9301 + 49297) % 233280;
   return $seed / 233280.0;
 }
 
+/**
+ * 随机生成 [min,max] 内的整数
+ * @param {Integer} min 下界
+ * @param {Integer} max 上界
+ * @return {Integer} [min,max] 内的整数
+ */
 function $randint(min, max) {
   max = max || 1;
   min = min || 0;
   return Math.floor($rand() * (max - min + 1)) + min;
 }
 
+/**
+ * 将传入的数组打乱
+ * @param {Array} array 
+ */
 function shuffle(array) {
   let len = array.length;
   for (let i = len - 1; i > 0; i--) {
@@ -23,9 +42,16 @@ function shuffle(array) {
   }
 }
 
+// 运算符集
 const opset = ['+', '-', '*', '/', '²', '√', 'sin', 'cos', 'tan'];
+// 错误答案系数
 const COE = [1, 2, 3, 5, 7, 11];
 
+/**
+ * 获得运算符的优先级
+ * @param {string} item 运算符
+ * @return {0, 1, 2, 3} 优先级
+ */
 function getPriority(item) {
   if (typeof item !== 'string')
     return 0;
@@ -37,6 +63,11 @@ function getPriority(item) {
     return 1;
 }
 
+/**
+ * 生成后缀表达式
+ * @param {0, 1, 2} level 试卷难度
+ * @return {Array} 后缀表达式
+ */
 function getSuffix(level) {
   if (typeof level !== 'number' || isNaN(level))
     return null;
@@ -84,6 +115,11 @@ function getSuffix(level) {
   return expression;
 }
 
+/**
+ * 将后缀表达式转换成中缀表达式，并计算其值
+ * @param {Array} expression 后缀表达式
+ * @returns {[string, Number]} 中缀表达式 中缀表达式的值
+ */
 function suffix2infix(expression) {
   var stack = [];
   expression.forEach((e) => {
@@ -159,10 +195,20 @@ function suffix2infix(expression) {
   return [stack[0][0], stack[0][2]];
 }
 
+/**
+ * 生成中缀表达式及其值
+ * @param {0, 1, 2} level 难度
+ * @returns {[string, Number]} 中缀表达式 中缀表达式的值
+ */
 function getInfix(level) {
   return suffix2infix(getSuffix(level));
 }
 
+/**
+ * 生成一份试卷
+ * @param {Integer, Integer, Number} paperMeta 试卷元数据：试题难度、试题数量、试卷种子
+ * @returns {Array} 试卷数据，每一个元素为一个试题
+ */
 function getPaper(paperMeta) {
   var paperData = []
   $srand(paperMeta.seed);

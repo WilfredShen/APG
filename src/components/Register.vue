@@ -110,6 +110,7 @@ export default {
   name: "Register",
   data() {
     return {
+      // 注册信息
       registerForm: {
         username: "",
         password: "",
@@ -117,6 +118,7 @@ export default {
         phone: "",
         code: "",
       },
+      // 校验规则
       registerRules: {
         username: [
           { required: true, message: "用户名不能为空", trigger: "blur" },
@@ -156,16 +158,19 @@ export default {
           trigger: "blur",
         },
       },
+      // DOM 状态
       status: {
         codeSent: false,
         resend: 0,
         showPass1: "password",
         showPass2: "password",
       },
+      // 随机生成的验证码
       code: null,
     };
   },
   methods: {
+    // 切换密码显示状态
     showPass: function (slot) {
       switch (slot) {
         case 1:
@@ -175,6 +180,7 @@ export default {
           this.status.showPass2 = this.status.showPass2 == "" ? "password" : "";
       }
     },
+    // 发送验证码
     sendCode: function () {
       var flag;
       this.$refs["registerForm"].validate((res) => {
@@ -211,6 +217,7 @@ export default {
           .catch(() => {});
       }
     },
+    // 提交注册信息
     submit: function () {
       var flag;
       this.$refs["registerForm"].validate((res) => {

@@ -12,7 +12,7 @@ import APGpaper from '@/components/APGpaper'
 import APGreport from '@/components/APGreport'
 
 export default new VueRouter({
-  // mode: 'history',
+  // mode: 'history', // 本地运行必须使用 hash 模式
   routes: [
     {
       path: '/',

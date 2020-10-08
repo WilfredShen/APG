@@ -64,10 +64,12 @@ export default {
   name: "Login",
   data() {
     return {
+      // 登录数据
       loginForm: {
         username: "",
         password: "",
       },
+      // 校验规则
       loginRules: {
         username: [
           { required: true, message: "用户名/手机号不能为空", trigger: "blur" },
@@ -89,12 +91,14 @@ export default {
           },
         ],
       },
+      // DOM 的状态
       status: {
         showPass: false,
       },
     };
   },
   methods: {
+    /* 进行登录验证，通过则跳转 */
     validate: function (data) {
       if (data && sha256(this.loginForm.password) === data.password) {
         var now = new Date().getTime();
@@ -117,6 +121,7 @@ export default {
         });
       }
     },
+    /* 提交登录信息 */
     submit: function () {
       var flag;
       this.$refs["loginForm"].validate((success) => {

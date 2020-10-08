@@ -102,12 +102,14 @@ export default {
   name: "pwd",
   data() {
     return {
+      // 修改信息
       pwdForm: {
         username: "",
         password: "",
         confpass: "",
         code: "",
       },
+      // 校验规则
       pwdRules: {
         username: [
           { required: true, message: "用户名不能为空", trigger: "blur" },
@@ -140,16 +142,19 @@ export default {
           },
         ],
       },
+      // DOM 状态
       status: {
         codeSent: false,
         resend: 0,
         showPass1: "password",
         showPass2: "password",
       },
+      // 随机生成的验证码
       code: null,
     };
   },
   methods: {
+    /* 切换密码显示状态 */
     showPass: function (slot) {
       switch (slot) {
         case 1:
@@ -159,6 +164,7 @@ export default {
           this.status.showPass2 = this.status.showPass2 == "" ? "password" : "";
       }
     },
+    // 验证能否发送验证码，验证通过则生成并发送
     validateCode: function (data) {
       console.log(data);
       if (
@@ -188,6 +194,7 @@ export default {
           message: "该用户尚未注册！",
         });
     },
+    // 验证能否修改密码，验证通过则修改
     validate: function (data, pwd) {
       console.log(data);
       if (
@@ -214,6 +221,7 @@ export default {
           message: "用户名/手机号未注册！",
         });
     },
+    // 发送验证码
     sendCode: function () {
       console.log("pwdForm", this.pwdForm);
       if (this.pwdForm.username) {
@@ -230,6 +238,7 @@ export default {
         });
       }
     },
+    // 提交修改信息
     submit: function () {
       var flag;
       this.$refs["pwdForm"].validate((res) => {

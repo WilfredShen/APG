@@ -35,13 +35,18 @@ export default {
   name: "APGreport",
   data() {
     return {
+      // 试卷元数据（难度、数量、种子）
       paperMeta: {},
+      // 试卷数据，一个对象为一道试题
       paperData: [],
+      // 答对的题目数量
       score: 0,
+      // 提交的答案
       answer: "",
     };
   },
   methods: {
+    /* 用于设置颜色 */
     getColor: function (pid, oid) {
       if (this.paperData[pid].selected == oid)
         if (this.paperData[pid].answer == this.paperData[pid].options[oid])
@@ -53,6 +58,7 @@ export default {
     },
   },
   created() {
+    /* 渲染 DOM 之前加载数据 */
     this.paperMeta = {
       difficulty: Number(this.$route.query.difficulty),
       number: Number(this.$route.query.number),
