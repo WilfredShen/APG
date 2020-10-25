@@ -32,7 +32,7 @@ function $randint(min, max) {
 
 /**
  * 将传入的数组打乱
- * @param {Array} array 
+ * @param {Array} array 待打乱的数组
  */
 function shuffle(array) {
   let len = array.length;
